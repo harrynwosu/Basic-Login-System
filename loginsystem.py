@@ -1,6 +1,5 @@
-from tkinter import Tk, Button, Frame
-from tkinter import simpledialog
-from tkinter import messagebox
+from tkinter import *
+from tkinter import simpledialog, messagebox
 
 cred = {} #Dictionary that contains the login details of all users
 
@@ -27,7 +26,7 @@ def login():
     """Prompts an existing user for a username and password"""
     username = simpledialog.askstring(title="Login", prompt="Username:")
     password = simpledialog.askstring(title="Login", prompt="Password:")
-    if username in cred:
+    if username in cred and cred[username] == password:
         if cred[username] == password:
             messagebox.showinfo(title="Login", message="Login successful")
     else:
@@ -60,8 +59,11 @@ root.geometry('100x100')
  
 def run_program(): 
     try:  
-        Button(root, text='Login', command=login).pack()
-        Button(root, text='New User', command=user).pack()
+        button_login = Button(root, text='Login', padx = 42, pady = 5, command=login)
+        button_user = Button(root, text='New User', padx = 32, pady = 5, command=user)
+        button_login.grid(row = 0, column = 0)
+        button_user.grid()
+
     except Exception: #Catches any exceptions that arise during the program execution
         messagebox.showwarning(title="Error", message="There was an error in your login!")
 
@@ -69,5 +71,7 @@ if __name__ == "__main__":
     root = Tk()
     run_program()
     root.mainloop()
+
+
 
 
